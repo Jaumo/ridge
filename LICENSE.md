@@ -1,5 +1,6 @@
 # The MIT License (MIT)
 
+Copyright (c) 2024 Jaumo <info@jaumo.com>
 Copyright (c) 2017 PHPinnacle <dev@phpinnacle.com>
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy

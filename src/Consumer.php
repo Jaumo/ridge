@@ -1,18 +1,11 @@
 <?php
-/**
- * This file is part of PHPinnacle/Ridge.
- *
- * (c) PHPinnacle Team <dev@phpinnacle.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+
 
 declare(strict_types=1);
 
 namespace PHPinnacle\Ridge;
 
-use function Amp\asyncCall;
+use function Amp\async;
 
 final class Consumer
 {
@@ -45,13 +38,15 @@ final class Consumer
                 if (!$tag = $message->consumerTag) {
                     return;
                 }
-
-                if (!isset($this->listeners[$tag])) {
-                    return;
-                }
-
-                /** @psalm-suppress MixedArgumentTypeCoercion */
-                asyncCall($this->listeners[$tag], $message, $this->channel);
+                
+                async(function () use ($tag, $message) {
+                    if (!isset($this->listeners[$tag])) {
+                        return;
+                    }
+                    $this->listeners[$tag]($message, $this->channel);
+                })->catch(function (\Throwable $e) {
+                    throw $e;
+                });
             }
         );
     }

@@ -1,18 +1,11 @@
 <?php
-/**
- * This file is part of PHPinnacle/Ridge.
- *
- * (c) PHPinnacle Team <dev@phpinnacle.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+
 
 declare(strict_types=1);
 
 namespace PHPinnacle\Ridge;
 
-use function Amp\asyncCall;
+use function Amp\async;
 
 final class MessageReceiver
 {
@@ -191,8 +184,9 @@ final class MessageReceiver
         $this->header = null;
 
         foreach ($this->callbacks as $callback) {
-            /** @psalm-suppress MixedArgumentTypeCoercion */
-            asyncCall($callback, $message);
+            async(function () use ($callback, $message) {
+                $callback($message);
+            });
         }
 
         $this->state = self::STATE_WAIT;

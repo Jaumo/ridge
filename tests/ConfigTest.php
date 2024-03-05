@@ -1,12 +1,5 @@
 <?php
-/**
- * This file is part of PHPinnacle/Ridge.
- *
- * (c) PHPinnacle Team <dev@phpinnacle.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+
 
 namespace PHPinnacle\Ridge\Tests;
 
@@ -14,7 +7,7 @@ use PHPinnacle\Ridge\Config;
 
 class ConfigTest extends RidgeTest
 {
-    public function testCreate()
+    public function testCreate(): void
     {
         $config = new Config();
 
@@ -25,7 +18,7 @@ class ConfigTest extends RidgeTest
         self::assertSame('guest', $config->pass);
     }
 
-    public function testUri()
+    public function testUri(): void
     {
         $default = new Config();
         $custom = new Config('my-domain.com', 6672);
@@ -34,7 +27,7 @@ class ConfigTest extends RidgeTest
         self::assertSame('tcp://my-domain.com:6672', $custom->uri());
     }
 
-    public function testParse()
+    public function testParse(): void
     {
         $config = Config::parse('amqp://user:pass@localhost:5672/test');
 
@@ -45,7 +38,7 @@ class ConfigTest extends RidgeTest
         self::assertSame('pass', $config->pass);
     }
 
-    public function testVhost()
+    public function testVhost(): void
     {
         self::assertSame('test', Config::parse('amqp://localhost:5672/test')->vhost);
         self::assertSame('/', Config::parse('amqp://localhost:5672/')->vhost);

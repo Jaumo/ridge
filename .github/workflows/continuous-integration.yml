@@ -3,26 +3,6 @@ name: "Continuous Integration"
 on: [ push, pull_request ]
 
 jobs:
-  psalm:
-    name: Psalm
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Install PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: 8.0
-          coverage: none
-          tools: composer:v2
-
-      - name: Install dependencies with composer
-        run: composer install -ov
-
-      - name: Run vimeo/psalm
-        run: ./vendor/bin/psalm --config=psalm.xml --shepherd
-
   phpstan:
     name: PHPStan
     runs-on: ubuntu-latest
@@ -33,7 +13,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.2
           coverage: none
           tools: composer:v2
 
@@ -68,7 +48,7 @@ jobs:
       - name: Install PHP with extensions
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.0
+          php-version: 8.2
           extensions: ${{ env.PHP_EXTENSIONS }}
           ini-values: ${{ env.PHP_INI_VALUES }}
           tools: composer:v2

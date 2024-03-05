@@ -1,18 +1,11 @@
 <?php
-/**
- * This file is part of PHPinnacle/Ridge.
- *
- * (c) PHPinnacle Team <dev@phpinnacle.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+
 
 declare(strict_types=1);
 
 namespace PHPinnacle\Ridge;
 
-use function Amp\asyncCall;
+use function Amp\async;
 
 final class Events
 {
@@ -54,8 +47,11 @@ final class Events
                     return;
                 }
 
-                /** @psalm-suppress MixedArgumentTypeCoercion */
-                asyncCall($listener, $message, $this->channel);
+                async(function () use ($listener, $message) {
+                    $listener($message, $this->channel);
+                })->catch(function (\Throwable $e) {
+                    throw $e;
+                });
             }
         );
 
@@ -70,8 +66,11 @@ final class Events
         $this->receiver->onFrame(
             $frame,
             function (Protocol\AcknowledgmentFrame $frame) use ($callback) {
-                /** @psalm-suppress MixedArgumentTypeCoercion */
-                asyncCall($callback, $frame->deliveryTag, $frame->multiple, $this->channel);
+                async(function () use ($callback, $frame) {
+                    $callback($frame->deliveryTag, $frame->multiple, $this->channel);
+                })->catch(function (\Throwable $e) {
+                    throw $e;
+                });
             }
         );
     }

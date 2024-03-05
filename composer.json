@@ -7,9 +7,15 @@
     "async",
     "amqp"
   ],
-  "homepage": "https://github.com/phpinnacle/ridge",
+  "homepage": "https://github.com/jaumo/ridge",
   "license": "MIT",
   "authors": [
+    {
+      "name": "Jaumo",
+      "email": "info@jaumo.com",
+      "homepage": "https://jaumo.com",
+      "role": "Developer"
+    },
     {
       "name": "PHPinnacle",
       "email": "dev@phpinnacle.com",
@@ -18,16 +24,15 @@
     }
   ],
   "require": {
-    "php": ">=8.0",
-    "amphp/amp": "v2.6.*",
-    "amphp/socket": "v1.2.*",
+    "php": ">=8.2",
+    "amphp/amp": "^v3.0.0",
+    "amphp/socket": "^v2.2.3",
     "phpinnacle/buffer": "v1.2.*",
     "evenement/evenement": "v3.0.*"
   },
   "require-dev": {
     "phpunit/phpunit": "v9.5.*",
-    "vimeo/psalm": "v4.19.*",
-    "phpstan/phpstan": "v1.4.*"
+    "phpstan/phpstan": "v1.10.*"
   },
   "prefer-stable": true,
   "autoload": {
@@ -41,7 +46,6 @@
     }
   },
   "scripts": {
-    "psalm": "./vendor/bin/psalm --config=psalm.xml",
     "phpstan": "./vendor/bin/phpstan analyse src --level 9",
     "tests": "./vendor/bin/phpunit --configuration phpunit.xml --verbose",
     "coverage": "./vendor/bin/phpunit --configuration phpunit.xml --coverage-html ./coverage --verbose"
