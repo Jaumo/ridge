@@ -1,5 +1,5 @@
 {
-  "name": "phpinnacle/ridge",
+  "name": "jaumo/ridge",
   "type": "library",
   "description": "PHPinnacle async AMQP client",
   "keywords": [
