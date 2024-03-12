@@ -38,7 +38,6 @@ final class Consumer
                 if (!$tag = $message->consumerTag) {
                     return;
                 }
-                
                 async(function () use ($tag, $message) {
                     if (!isset($this->listeners[$tag])) {
                         return;
